@@ -23,7 +23,7 @@ export default function BookData(props){
             bookId:bookId,
             text:text
         };
-        libraryService.addComment(comment)
+        libraryService.addComment(bookId, comment)
             .then((newComment) => {
                 const newComments = [...comments, newComment];
                 setComments(newComments);

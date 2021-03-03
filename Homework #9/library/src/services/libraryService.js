@@ -7,7 +7,7 @@ export default class LibraryService {
     }
 
     async deleteBook(bookId){
-        return await this._deleteData(`/api/book?bookId=${bookId}`);
+        return await this._deleteData(`/api/book/${bookId}`);
     }
 
     async addBook(book){
@@ -21,17 +21,17 @@ export default class LibraryService {
     }
 
     async getComments(bookId){
-        const res = await this._getData(`/api/comments?bookId=${bookId}`);
+        const res = await this._getData(`/api/book/${bookId}/comments`);
         return res.map(this._transformComment);
     }
 
-    async addComment(comment){
+    async addComment(bookId, comment){
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(comment)
         };
-        const newComment = await this._handleData(`/api/comments`, requestOptions);
+        const newComment = await this._handleData(`/api/book/${bookId}/comments`, requestOptions);
         return this._transformComment(newComment);
     }
 
